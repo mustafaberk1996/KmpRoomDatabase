@@ -2,18 +2,23 @@ package ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Button
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,21 +36,31 @@ fun App(database: RoomDatabase.Builder<Database>) {
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background,
+            color = MaterialTheme.colorScheme.background
         ) {
             MainScreen(database.build().userDao())
         }
-
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(userDao: UserDao) {
     Scaffold(
         topBar = {
-            Row {
-                Text("Add User", modifier = Modifier.fillMaxWidth(), style = MaterialTheme.typography.h1)
-            }
+            CenterAlignedTopAppBar(
+                title = {
+                    Text("Fantasy Premier League")
+                },
+                //scrollBehavior = scrollBehavior,
+                actions = {
+                    IconButton(onClick = {
+                        //onShowSettings()
+                    }) {
+                        Icon(Icons.Filled.Add, contentDescription = "Add")
+                    }
+                }
+            )
         },
 
         ) {
