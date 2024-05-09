@@ -3,6 +3,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import data.Database
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import platform.Foundation.NSHomeDirectory // This shall too in Windows.
 
 fun getDatabase(): RoomDatabase.Builder<Database> {
