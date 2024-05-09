@@ -13,6 +13,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.room.RoomDatabase
+import data.Database
 import kmproomdatabase.composeapp.generated.resources.Res
 import kmproomdatabase.composeapp.generated.resources.compose_multiplatform
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -22,7 +24,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App() {
+fun App(database: RoomDatabase.Builder<Database>) {
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
