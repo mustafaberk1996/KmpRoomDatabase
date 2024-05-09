@@ -19,6 +19,7 @@ androidx-viewmodelCompose = "2.7.0"
 ksp = "1.9.23-1.0.19"
 sqlite = "2.5.0-SNAPSHOT"
 androidx-room = "2.7.0-alpha01"
+androidxNavigationCompose = "2.8.0-alpha08"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -41,6 +42,7 @@ sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sql
 androidx-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "androidx-viewmodelCompose" }
 selam-resources = { module = "dev.icerock.moko:resources", version.ref = "resources" }
 selam-resources-compose = { module = "dev.icerock.moko:resources-compose", version.ref = "resources" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigationCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

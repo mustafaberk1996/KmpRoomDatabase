@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -30,6 +31,13 @@ kotlin {
         }
     }
 
+    androidTarget()
+    jvm()
+
+
+    compilerOptions {
+        languageVersion.set(KotlinVersion.KOTLIN_1_9)
+    }
 
     sourceSets {
         
@@ -43,7 +51,7 @@ kotlin {
             implementation(libs.sqlite.bundled)
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -87,11 +95,14 @@ android {
     }
 }
 
-room {
-    schemaDirectory("$projectDir/schemas")
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
 }
 
-dependencies {
-    ksp(libs.androidx.room.compiler)
+room {
+    schemaDirectory("$projectDir/schemas")
 }
 
