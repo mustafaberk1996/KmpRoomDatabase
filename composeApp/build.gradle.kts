@@ -47,6 +47,7 @@ kotlin {
 
         }
         commonMain.dependencies {
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.7.0-alpha03")
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
             implementation(compose.runtime)
@@ -96,6 +97,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":composeApp"))
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
     add("kspIosX64", libs.androidx.room.compiler)

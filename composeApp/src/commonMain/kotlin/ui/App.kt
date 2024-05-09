@@ -23,6 +23,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.room.RoomDatabase
 import data.Database
 import data.dao.UserDao
@@ -50,14 +53,9 @@ fun App(database: RoomDatabase.Builder<Database>) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(userDao: UserDao, onClickAddButton:()-> Unit) {
-
-
-
+    val navController = rememberNavController()
 
     Scaffold(
-        bottomBar = {
-
-        },
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -74,6 +72,13 @@ fun MainScreen(userDao: UserDao, onClickAddButton:()-> Unit) {
             )
         },
         ) {
+        Column {
+            NavHost(navController = navController, startDestination = ""){
+                //TODO I was here
+            }
+
+        }
+
         Column {
             var name by remember { mutableStateOf("") }
             var clickedSave by remember { mutableStateOf(false) }
@@ -110,3 +115,4 @@ fun MainScreen(userDao: UserDao, onClickAddButton:()-> Unit) {
         }
     }
 }
+
