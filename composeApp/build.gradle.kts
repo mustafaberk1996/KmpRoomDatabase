@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.room)
 }
 
@@ -39,6 +40,7 @@ kotlin {
         }
         commonMain.dependencies {
             implementation(libs.androidx.room.runtime)
+            implementation(libs.sqlite.bundled)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -89,5 +91,7 @@ room {
     schemaDirectory("$projectDir/schemas")
 }
 
-
+dependencies {
+    ksp(libs.androidx.room.compiler)
+}
 
