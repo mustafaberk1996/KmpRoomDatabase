@@ -2,7 +2,9 @@ package ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Surface
@@ -17,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import data.dao.UserDao
@@ -63,7 +66,27 @@ fun EmptyList(modifier: Modifier = Modifier) {
 fun List(userList:List<User>) {
     LazyColumn {
         items(userList) {
-            Text("User: ${it.name}")
+            UserListItem(it)
         }
     }
+}
+
+@Composable
+fun UserListItem(user:User) {
+    Column(
+        modifier = Modifier.fillMaxWidth()
+            .background(color = Color.LightGray),
+
+    ) {
+       Text(text = "${user.name} ${user.surname}", style = TextStyle(
+           fontSize = 18.sp
+       )
+       )
+       Text(text = "id: ${user.id}", style = TextStyle(
+           fontStyle = FontStyle.Italic,
+           fontSize = 15.sp
+       )
+       )
+    }
+
 }
