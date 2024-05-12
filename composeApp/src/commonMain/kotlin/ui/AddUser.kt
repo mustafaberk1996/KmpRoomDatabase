@@ -72,7 +72,8 @@ fun AddUser(userDao: UserDao) {
 
         Button(
             onClick = {
-            clickedSave = true
+                if (name.isBlank() || surname.isBlank()) return@Button
+                clickedSave = true
         },
             modifier = Modifier.fillMaxWidth()
 
