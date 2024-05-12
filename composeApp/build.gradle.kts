@@ -39,6 +39,7 @@ kotlin {
 
         }
         commonMain.dependencies {
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.7.0-alpha03")
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
             implementation(compose.runtime)
