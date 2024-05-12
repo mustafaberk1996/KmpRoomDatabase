@@ -1,5 +1,7 @@
 package ui
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -16,8 +18,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import data.dao.UserDao
 import data.entity.User
+import kmproomdatabase.composeapp.generated.resources.Res
+import kmproomdatabase.composeapp.generated.resources.baseline_add_photo_alternate_24
+import org.jetbrains.compose.resources.ExperimentalResourceApi
+import org.jetbrains.compose.resources.painterResource
 
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun AddUser(userDao: UserDao) {
     Column(modifier = Modifier.padding(10.dp)) {
@@ -30,7 +37,7 @@ fun AddUser(userDao: UserDao) {
 
         if (clickedSave) {
             LaunchedEffect(Unit) {
-                userDao.insert(User(name = name))
+                userDao.insert(User(name = name, surname = surname))
                 name = ""
                 surname = ""
                 clickedSave = false
@@ -54,6 +61,15 @@ fun AddUser(userDao: UserDao) {
             onValueChange = { surname = it },
             modifier = Modifier.fillMaxWidth()
         )
+
+        Image(
+            painter = painterResource(Res.drawable.baseline_add_photo_alternate_24),
+            contentDescription = "",
+            modifier = Modifier.clickable {
+                //TODO open gallery and pick up a photo
+            }
+        )
+
         Button(
             onClick = {
             clickedSave = true
