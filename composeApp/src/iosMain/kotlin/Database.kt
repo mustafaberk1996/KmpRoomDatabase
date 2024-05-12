@@ -7,7 +7,7 @@ import kotlinx.coroutines.IO
 import platform.Foundation.NSHomeDirectory // This shall too in Windows.
 
 fun getDatabase(): RoomDatabase.Builder<Database> {
-    val dbFile = NSHomeDirectory() + "/user.db"
+    val dbFile = NSHomeDirectory() + "/database.db"
     return Room.databaseBuilder<Database>(
         name = dbFile,
         factory = { Database::class.instantiateImpl() } // This too will show error

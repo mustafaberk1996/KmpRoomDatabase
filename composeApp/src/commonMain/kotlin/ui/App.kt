@@ -13,7 +13,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -27,6 +26,7 @@ import data.Database
 import data.dao.UserDao
 import kmproomdatabase.composeapp.generated.resources.Res
 import kmproomdatabase.composeapp.generated.resources.baseline_home_filled_24
+import kmproomdatabase.composeapp.generated.resources.baseline_person_add_24
 import kmproomdatabase.composeapp.generated.resources.title_add_user
 import kmproomdatabase.composeapp.generated.resources.title_home
 import org.jetbrains.compose.resources.DrawableResource
@@ -60,7 +60,7 @@ sealed class Screen @OptIn(ExperimentalResourceApi::class) constructor(
     @OptIn(ExperimentalResourceApi::class)
     data object Home : Screen("home", "Home", Res.drawable.baseline_home_filled_24, Res.string.title_home)
     @OptIn(ExperimentalResourceApi::class)
-    data object AddUser : Screen("addUser", "Add User", Res.drawable.baseline_home_filled_24, Res.string.title_add_user)
+    data object AddUser : Screen("addUser", "Add User", Res.drawable.baseline_person_add_24, Res.string.title_add_user)
 }
 
 @OptIn(ExperimentalResourceApi::class)
