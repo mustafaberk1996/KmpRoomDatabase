@@ -6,7 +6,7 @@ import data.Database
 import kotlinx.coroutines.Dispatchers
 
 fun getDatabase(context: Context): RoomDatabase.Builder<Database> {
-    val dbFile = context.getDatabasePath("user.db")
+    val dbFile = context.getDatabasePath("database.db")
     return Room.databaseBuilder<Database>(
         context = context.applicationContext,
         name = dbFile.absolutePath
