@@ -99,7 +99,7 @@ android {
 }
 
 dependencies {
-//    implementation(project(":composeApp"))
+    //implementation(project(":composeApp"))
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
     add("kspIosX64", libs.androidx.room.compiler)

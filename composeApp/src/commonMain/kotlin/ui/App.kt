@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -14,6 +17,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -38,7 +43,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
 @Composable
-@Preview
 fun App(database: RoomDatabase.Builder<Database>) {
     MaterialTheme {
         Surface(
@@ -51,16 +55,20 @@ fun App(database: RoomDatabase.Builder<Database>) {
     }
 }
 
+
+
 sealed class Screen @OptIn(ExperimentalResourceApi::class) constructor(
     val route: String,
     val label: String,
-    val icon: DrawableResource,
-    val title: StringResource
-) {
+    val icon: ImageVector,
+
+    ) {
+    //    val title: StringResource
+    //data object Home : Screen("home", "Home", Res.drawable.baseline_home_filled_24, Res.string.title_home)
     @OptIn(ExperimentalResourceApi::class)
-    data object Home : Screen("home", "Home", Res.drawable.baseline_home_filled_24, Res.string.title_home)
+    data object Home : Screen("home", "Home", Icons.Default.Home )
     @OptIn(ExperimentalResourceApi::class)
-    data object AddUser : Screen("addUser", "Add User", Res.drawable.baseline_person_add_24, Res.string.title_add_user)
+    data object AddUser : Screen("addUser", "Add User", Icons.Default.Add)
 }
 
 @OptIn(ExperimentalResourceApi::class)
@@ -68,17 +76,14 @@ sealed class Screen @OptIn(ExperimentalResourceApi::class) constructor(
 fun CustomBottomNavigation(
     navController: NavController,
     items: List<Screen>,
-    bottomNavigationClicked:(screen:Screen)->Unit
+    bottomNavigationClicked:(screen: Screen)->Unit
 ) {
     NavigationBar {
         val currentDestination = navController.currentBackStackEntryAsState()
         items.forEach { screen ->
             NavigationBarItem(
                 icon = {
-                    Icon(
-                        painter = painterResource(screen.icon),
-                        contentDescription = screen.label
-                    )
+                    Icon(imageVector =  screen.icon, contentDescription = "")
                 },
                 label = { Text(screen.label) },
                 selected = currentDestination.value?.destination?.route == screen.route,
@@ -93,13 +98,13 @@ fun CustomBottomNavigation(
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun TopBar(title:StringResource) {
+fun TopBar() {
     Row(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxWidth().padding(10.dp)
     ) {
         Text(
-            text = stringResource(title),
+            text ="Hommee",
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge
         )
@@ -121,16 +126,17 @@ fun MainScreen(userDao: UserDao) {
     Scaffold(
         bottomBar = {
             CustomBottomNavigation(navController, items){screen: Screen ->
-                title = screen.title
+                //title = Res.string.title_home
                 navController.navigate(screen.route)
             }
         },
         topBar = {
-          TopBar(title)
+            TopBar()
         },
-    ) {
+    ) {contentPadding->
 
-        NavHost(navController = navController, startDestination = Screen.Home.route) {
+
+        NavHost(navController = navController, startDestination = Screen.Home.route, modifier = Modifier.padding(contentPadding)) {
             composable(Screen.Home.route) {
                 Home(userDao)
             }

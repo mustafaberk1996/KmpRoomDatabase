@@ -44,7 +44,7 @@ fun Home(userDao: UserDao) {
         if (userList.isEmpty()){
             EmptyList()
         }else{
-           List(userList)
+            List(userList)
         }
     }
 }
@@ -77,16 +77,16 @@ fun UserListItem(user:User) {
         modifier = Modifier.fillMaxWidth()
             .background(color = Color.LightGray),
 
-    ) {
-       Text(text = "${user.name} ${user.surname}", style = TextStyle(
-           fontSize = 18.sp
-       )
-       )
-       Text(text = "id: ${user.id}", style = TextStyle(
-           fontStyle = FontStyle.Italic,
-           fontSize = 15.sp
-       )
-       )
+        ) {
+        Text(text = "${user.name} ${user.surname}", style = TextStyle(
+            fontSize = 18.sp
+        )
+        )
+        Text(text = "id: ${user.id}", style = TextStyle(
+            fontStyle = FontStyle.Italic,
+            fontSize = 15.sp
+        )
+        )
     }
 
 }
