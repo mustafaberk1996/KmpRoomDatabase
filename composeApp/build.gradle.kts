@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 
 plugins {
@@ -35,6 +36,7 @@ kotlin {
     jvm()
 
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         languageVersion.set(KotlinVersion.KOTLIN_1_9)
     }
@@ -68,7 +70,7 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].resources.srcDirs("src/commonMain/composeResources")
 
     defaultConfig {
         applicationId = "org.example.project"
@@ -97,7 +99,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":composeApp"))
+//    implementation(project(":composeApp"))
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
     add("kspIosX64", libs.androidx.room.compiler)

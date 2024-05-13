@@ -35,7 +35,7 @@ import androidx.navigation.compose.rememberNavController
 import data.dao.UserDao
 import data.entity.User
 import getDatabase
-import org.example.project.user.AddUserScreen
+import org.example.project.user.AddUser
 import org.example.project.user.UserListScreen
 
 class MainActivity : ComponentActivity() {
@@ -80,7 +80,7 @@ fun MainScreen(userDao: UserDao, onClickAddButton: () -> Unit) {
                     UserListScreen(userDao = userDao)
                 }
                 composable(route = Screen.AddUser.title) {
-                    AddUserScreen(userDao = userDao)
+                    AddUser(userDao = userDao)
                 }
             }
         }

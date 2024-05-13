@@ -5,13 +5,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -43,7 +43,7 @@ fun App(database: RoomDatabase.Builder<Database>) {
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background,
+            color = MaterialTheme.colorScheme.background,
         ) {
             MainScreen(database.build().userDao())
         }
@@ -70,10 +70,10 @@ fun CustomBottomNavigation(
     items: List<Screen>,
     bottomNavigationClicked:(screen:Screen)->Unit
 ) {
-    BottomNavigation {
+    NavigationBar {
         val currentDestination = navController.currentBackStackEntryAsState()
         items.forEach { screen ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = {
                     Icon(
                         painter = painterResource(screen.icon),
@@ -101,7 +101,7 @@ fun TopBar(title:StringResource) {
         Text(
             text = stringResource(title),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.h5
+            style = MaterialTheme.typography.titleLarge
         )
     }
 }

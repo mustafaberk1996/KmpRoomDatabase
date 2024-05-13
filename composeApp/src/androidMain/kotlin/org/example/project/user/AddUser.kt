@@ -1,4 +1,4 @@
-package ui
+package org.example.project.user
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -74,7 +74,7 @@ fun AddUser(userDao: UserDao) {
             onClick = {
                 if (name.isBlank() || surname.isBlank()) return@Button
                 clickedSave = true
-        },
+            },
             modifier = Modifier.fillMaxWidth()
 
         ) {
