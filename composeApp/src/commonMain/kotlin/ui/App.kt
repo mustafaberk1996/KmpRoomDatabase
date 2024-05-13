@@ -108,7 +108,7 @@ fun MainScreen(userDao: UserDao) {
     val items = listOf(Screen.Home, Screen.AddUser)
     var titleResource by remember { mutableStateOf(Res.string.title_home) }
 
-    navController.addOnDestinationChangedListener { controller, destination, arguments ->
+    navController.addOnDestinationChangedListener { _, destination, _ ->
         titleResource = when(destination.route){
                Screen.Home.route-> Res.string.title_home
             else -> Res.string.title_add_user

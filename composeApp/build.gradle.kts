@@ -32,10 +32,6 @@ kotlin {
         }
     }
 
-    androidTarget()
-    jvm()
-
-
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         languageVersion.set(KotlinVersion.KOTLIN_1_9)
