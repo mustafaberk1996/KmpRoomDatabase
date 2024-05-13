@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.key.Key.Companion.Home
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -30,17 +29,11 @@ import androidx.room.RoomDatabase
 import data.Database
 import data.dao.UserDao
 import kmproomdatabase.composeapp.generated.resources.Res
-import kmproomdatabase.composeapp.generated.resources.baseline_home_filled_24
-import kmproomdatabase.composeapp.generated.resources.baseline_person_add_24
 import kmproomdatabase.composeapp.generated.resources.title_add_user
 import kmproomdatabase.composeapp.generated.resources.title_home
-import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
 
 @Composable
 fun App(database: RoomDatabase.Builder<Database>) {
@@ -56,22 +49,15 @@ fun App(database: RoomDatabase.Builder<Database>) {
 }
 
 
-
-sealed class Screen @OptIn(ExperimentalResourceApi::class) constructor(
+sealed class Screen(
     val route: String,
     val label: String,
-    val icon: ImageVector,
-
-    ) {
-    //    val title: StringResource
-    //data object Home : Screen("home", "Home", Res.drawable.baseline_home_filled_24, Res.string.title_home)
-    @OptIn(ExperimentalResourceApi::class)
-    data object Home : Screen("home", "Home", Icons.Default.Home )
-    @OptIn(ExperimentalResourceApi::class)
+    val icon: ImageVector
+) {
+    data object Home : Screen("home", "Home", Icons.Default.Home)
     data object AddUser : Screen("addUser", "Add User", Icons.Default.Add)
 }
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CustomBottomNavigation(
     navController: NavController,
@@ -98,13 +84,13 @@ fun CustomBottomNavigation(
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun TopBar() {
+fun TopBar(titleRes:StringResource) {
     Row(
         horizontalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxWidth().padding(10.dp)
     ) {
         Text(
-            text ="Hommee",
+            text = stringResource(titleRes),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge
         )
@@ -120,22 +106,25 @@ fun MainScreen(userDao: UserDao) {
 
     val navController = rememberNavController()
     val items = listOf(Screen.Home, Screen.AddUser)
-    var title by remember { mutableStateOf(Res.string.title_home) }
+    var titleResource by remember { mutableStateOf(Res.string.title_home) }
 
+    navController.addOnDestinationChangedListener { controller, destination, arguments ->
+        titleResource = when(destination.route){
+               Screen.Home.route-> Res.string.title_home
+            else -> Res.string.title_add_user
+        }
+    }
 
     Scaffold(
         bottomBar = {
             CustomBottomNavigation(navController, items){screen: Screen ->
-                //title = Res.string.title_home
                 navController.navigate(screen.route)
             }
         },
         topBar = {
-            TopBar()
+            TopBar(titleResource)
         },
     ) {contentPadding->
-
-
         NavHost(navController = navController, startDestination = Screen.Home.route, modifier = Modifier.padding(contentPadding)) {
             composable(Screen.Home.route) {
                 Home(userDao)
